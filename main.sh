@@ -1,10 +1,13 @@
 #!/bin/bash
 
-domain="lysakermoen.com" #Domain to enumerate
+domain="example.com" #Domain to enumerate
+
+knockpydir="" #Directory for the knockpy.py file. https://github.com/guelfoweb/knock
+
 mkdir tmp
 rm ./tmp/* #Removes potential junk in the tmp folder
 rm final.json
-python /home/sander/Downloads/knock-master/knockpy.py $domain -o ./tmp #https://github.com/guelfoweb/knock
+python $knockpydir $domain -o ./tmp 
 
 cat ./tmp/*.json | jq keys > ./tmp/subdomains #Parse json, gets subdomains from the raw json data
 
