@@ -4,7 +4,7 @@ domain="lysakermoen.com" #Domain to enumerate
 mkdir tmp
 rm ./tmp/* #Removes potential junk in the tmp folder
 rm final.json
-python /home/sander/Downloads/knock-master/knockpy.py $domain -o ./tmp
+python /home/sander/Downloads/knock-master/knockpy.py $domain -o ./tmp #https://github.com/guelfoweb/knock
 
 cat ./tmp/*.json | jq keys > ./tmp/subdomains #Parse json, gets subdomains from the raw json data
 
@@ -27,7 +27,7 @@ do
     ip=$(head -$i tmp/ips | tail +$i)
     echo $subdomain $ip
     nmap -A $ip -oX ./tmp/xml --reason
-    nmap2json convert ./tmp/xml --save ./tmp/out.json > /dev/null
+    nmap2json convert ./tmp/xml --save ./tmp/out.json > /dev/null #gem install nmap2json
     nmapJson=$(cat ./tmp/out.json)
     JSON_STRING=$(jq -n \
                       --arg s "$subdomain" \
